@@ -1,0 +1,23 @@
+main{
+    display: flex;
+    flex-direction: row;
+    gap: 2;
+}
+
+.red .green .blue .yellow{
+    height: 300px;
+    width: 300px;
+}
+
+.red{
+    background-color: red;
+}
+.green{
+    background-color: green;
+}
+.blue{
+    background-color: blue;
+}
+.yellow{
+    background-color: yellow;
+}
