@@ -1,23 +1,12 @@
-main{
-    display: flex;
-    flex-direction: row;
-    gap: 2;
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.red .green .blue .yellow{
-    height: 300px;
-    width: 300px;
+header img{
+    height: 50px;
+    border-radius: 50%;
 }
 
-.red{
-    background-color: red;
-}
-.green{
-    background-color: green;
-}
-.blue{
-    background-color: blue;
-}
-.yellow{
-    background-color: yellow;
-}
