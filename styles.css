@@ -1,12 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  width: min(95vw, 425px);
+  height: 100dvh;
+  margin: 0 auto;
+  border: 2px solid var(--border);
+  color: var(--text-primary);
+  background-color: var(--bg);
+}
+
+#themeToggle{
+  background-color: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  border: none;
+  font-size: 20px;
+}
+
+#themeToggle:active {
+  transform: scale(0.95);
+}
 header {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-header img{
-    height: 50px;
-    border-radius: 50%;
+header img {
+  height: 50px;
+  border-radius: 50%;
 }
-

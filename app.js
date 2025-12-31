@@ -1,5 +1,16 @@
+const body = document.body;
+const themeToggle = document.getElementById("themeToggle");
+
+body, classList.add("light")
+themeToggle.innerHTML = `<span class="material-symbols-outlined">
+                            dark_mode
+                            </span>`
+themeToggle.addEventListener("click",()=>{
+    
+})
+
 const mainContainer = document.getElementById("mainContainer");
-document.addEventListener("DOMContentLoaded",createLevels);
+document.addEventListener("DOMContentLoaded", createLevels);
 
 function createLevels() {
     mainContainer.innerHTML = "";
@@ -38,25 +49,25 @@ function createLevels() {
 
 }
 
-function btnCreate( handleLevel) {
+function btnCreate(handleLevel) {
 
     const backBtn = document.createElement("button");
     backBtn.className = "backBtn";
     backBtn.textContent = "Back";
-    backBtn.addEventListener("click",createLevels);
+    backBtn.addEventListener("click", createLevels);
     backBtn.classList.add("backBtn");
 
 
     const startBtn = document.createElement("button");
     startBtn.textContent = "Start";
     startBtn.classList.add("startBtn");
-    startBtn.addEventListener("click",handleLevel)
+    startBtn.addEventListener("click", handleLevel)
 
     const btnContainer = document.createElement("div");
     btnContainer.appendChild(backBtn);
     btnContainer.appendChild(startBtn);
 
-   return btnContainer;
+    return btnContainer;
 
 }
 
@@ -65,7 +76,7 @@ function handleEasyLevel() {
     mainContainer.innerHTML = "";
 
 
-    const btnGroup=btnCreate(handleEasyStart);
+    const btnGroup = btnCreate(handleEasyStart);
     mainContainer.appendChild(btnGroup);
 }
 
@@ -73,7 +84,7 @@ function handleMediumLevel() {
     console.log("clicked medium level button");
     mainContainer.innerHTML = "";
 
-     const btnGroup=btnCreate(handleMediumStart);
+    const btnGroup = btnCreate(handleMediumStart);
     mainContainer.appendChild(btnGroup);
 }
 
@@ -81,18 +92,18 @@ function handleHardLevel() {
     console.log("clicked hard level button");
     mainContainer.innerHTML = "";
 
-  const btnGroup=btnCreate(handleHardStart);
+    const btnGroup = btnCreate(handleHardStart);
     mainContainer.appendChild(btnGroup);
 }
 
-function handleEasyStart(){
+function handleEasyStart() {
     console.log("Easy Level start clicked")
 }
 
-function handleMediumStart(){
+function handleMediumStart() {
     console.log("Medium Level start clicked")
 }
 
-function handleHardStart(){
+function handleHardStart() {
     console.log("Hard Level start clicked")
 }
