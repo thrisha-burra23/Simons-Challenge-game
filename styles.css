@@ -12,7 +12,20 @@ body {
   background-color: var(--bg);
 }
 
-#themeToggle{
+.green {
+  background-color: var(--green);
+}
+.yellow {
+  background-color: var(--yellow);
+}
+.red {
+  background-color: var(--red);
+}
+.blue {
+  background-color: var(--blue);
+}
+
+#themeToggle {
   background-color: none;
   color: var(--text-primary);
   cursor: pointer;
@@ -32,4 +45,73 @@ header {
 header img {
   height: 50px;
   border-radius: 50%;
+}
+
+#gameContainer {
+  border: 2px solid black;
+  height: auto;
+  width: auto;
+}
+#gameHeader {
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 3rem;
+  width: auto;
+}
+#gameStart {
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+}
+
+.pad {
+  height: 8.3rem;
+  width: 8.3rem;
+}
+
+.level1Board {
+  display: grid;
+  grid-template-columns: 8.3rem 8.3rem 8.3rem;
+  grid-template-rows: 8.3rem 8.3rem 8.3rem;
+  gap: 0.5rem;
+}
+
+.top {
+  grid-column: 2;
+  grid-row: 1;
+}
+.left {
+  grid-column: 1;
+  grid-row: 2;
+}
+.right {
+  grid-column: 3;
+  grid-row: 2;
+}
+.bottom {
+  grid-column: 2;
+  grid-row: 3;
+}
+.center {
+  grid-column: 2;
+  grid-row: 2;
+  background-color: var(--bg);
+  border: 2px solid black;
+}
+
+.backBtn {
+  background-color: cadetblue;
+  color: var(--text-primary);
+  
+}
+
+.startBtn {
+  background-color: bisque;
+  color: var(--text-primary);
+  height: 3rem;
+  width: 10rem;
 }
