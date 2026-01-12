@@ -39,18 +39,70 @@ body {
 header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content:space-between;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  border: 2px solid black;
+  
+ 
+  padding:1rem 0;
 }
 
 header img {
-  height: 50px;
+  height: 4rem;
+ 
   border-radius: 50%;
+}
+
+header h1{
+  font-size: 2.5rem;
+  font-style: italic;  
+}
+
+/* #mainContainer{
+padding: 1rem;
+ border: 2px solid black;
+} */
+
+.mainHeading{
+  color: var(--text-primary);
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+  font-size: 2rem;
+
+}
+
+.LevelBtn {
+  
+  padding: 1rem;
+  margin: 1rem;
+  color: var(--text-primary);
+  background-color: #04b07a;
+
+  font-size: larger;
+  border-radius: 3rem;
+}
+
+.levelContainer{
+  border: 2px solid rgb(10, 10, 10);
+  display: flex;
+  flex-direction: column;
+  align-items:center ;
+  justify-content: center;
+}
+.levelBtnContainer{
+   border: 2px solid red;
+   display: flex;
+   flex-direction: column;
+   gap: 2.5;
+   width:80%;
+   
 }
 
 #gameContainer {
   border: 2px solid black;
   height: auto;
   width: auto;
+  
 }
 #gameHeader {
   border: 2px solid black;

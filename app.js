@@ -30,7 +30,7 @@ function createLevels() {
     const mediumLevelBtn = document.createElement("button");
     const hardLevelBtn = document.createElement("button");
 
-    h1.textContent = "Select level";
+    h1.textContent = "Ready to test your memory? Choose your level!";
     easyLevelBtn.textContent = "Easy";
     mediumLevelBtn.textContent = "Medium";
     hardLevelBtn.textContent = "Hard";
@@ -38,9 +38,9 @@ function createLevels() {
     levelContainer.classList.add("levelContainer");
     levelBtnContainer.classList.add("levelBtnContainer");
     h1.classList.add("mainHeading");
-    easyLevelBtn.classList.add("easyLevelBtn")
-    mediumLevelBtn.classList.add("mediumLevelBtn");
-    hardLevelBtn.classList.add("hardLevelBtn");
+    easyLevelBtn.classList.add("LevelBtn")
+    mediumLevelBtn.classList.add("LevelBtn");
+    hardLevelBtn.classList.add("LevelBtn");
 
     easyLevelBtn.addEventListener("click", handleEasyLevel);
     mediumLevelBtn.addEventListener("click", handleMediumLevel);
@@ -127,17 +127,18 @@ function replaceStart() {
         resetBtn.addEventListener("click", handleReset);
 
         gameStart.appendChild(resetBtn);
-    }}
+    }
+}
 
-    function handleEasyLevel() {
-        console.log("clicked easy level button");
-        mainContainer.innerHTML = "";
+function handleEasyLevel() {
+    console.log("clicked easy level button");
+    mainContainer.innerHTML = "";
 
-        basicGameBody(handleEasyStart);
-        const gameContainer = document.getElementById("gameContainer");
-        gameContainer.innerHTML = "Easy";
+    basicGameBody(handleEasyStart);
+    const gameContainer = document.getElementById("gameContainer");
+    gameContainer.innerHTML = "Easy";
 
-        gameContainer.innerHTML = `
+    gameContainer.innerHTML = `
     <div class="level1Board">
         <div  style="border-radius: 12%;" class="pad green top" id="green1">green</div>
         <div style="border-radius: 12%;" class="pad red left " id="red1">red</div>
@@ -146,11 +147,11 @@ function replaceStart() {
         <div style="border-radius: 12%;" class="pad blue bottom" id="blue1">blue</div>
     </div>
     `
-    }
+}
 
-    function handleEasyStart() {
-        console.log("Easy Level start clicked", ++gameLevel)        
-        if(start==false){  
+function handleEasyStart() {
+    console.log("Easy Level start clicked", ++gameLevel)
+    if (start == false) {
         replaceStart();
 
         const green = document.getElementById("green1");
@@ -164,13 +165,21 @@ function replaceStart() {
 }
 
 function handleMediumLevel() {
-    console.log("clicked medium level button");
+     console.log("clicked easy level button");
     mainContainer.innerHTML = "";
 
-    basicGameBody(handleMediumStart);
+    basicGameBody(handleEasyStart);
     const gameContainer = document.getElementById("gameContainer");
-
     gameContainer.innerHTML = "Medium";
+
+    gameContainer.innerHTML = `
+    <div class="level1Board">
+        <div  style="border-radius: 100%;" class="pad green top" id="green2">green</div>
+        <div style="border-radius: 100%;" class="pad red left " id="red2">red</div>        
+        <div style="border-radius: 100%;" class="pad yellow right" id="yellow2">yellow</div>
+        <div style="border-radius: 100%;" class="pad blue bottom" id="blue2">blue</div>
+    </div>
+    `
 }
 
 function handleMediumStart() {
