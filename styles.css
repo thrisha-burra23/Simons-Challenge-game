@@ -36,73 +36,64 @@ body {
 #themeToggle:active {
   transform: scale(0.95);
 }
+
 header {
   display: flex;
   align-items: center;
-  justify-content:space-between;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
-  border: 2px solid black;
-  
- 
-  padding:1rem 0;
+  justify-content: space-between;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* border: 2px solid black; */
+  padding: 1rem 0;
 }
 
 header img {
   height: 4rem;
- 
   border-radius: 50%;
 }
 
-header h1{
+header h1 {
   font-size: 2.5rem;
-  font-style: italic;  
+  font-style: italic;
 }
 
-/* #mainContainer{
-padding: 1rem;
- border: 2px solid black;
-} */
-
-.mainHeading{
+.mainHeading {
   color: var(--text-primary);
-  padding-top: 5rem;
+  padding-top: 2rem;
   padding-bottom: 2rem;
   font-size: 2rem;
-
+  font-style: oblique;
+  padding-left: 1rem;
 }
 
 .LevelBtn {
-  
   padding: 1rem;
   margin: 1rem;
   color: var(--text-primary);
-  background-color: #04b07a;
-
+  background-color: #af0cac;
   font-size: larger;
   border-radius: 3rem;
+  border: 2px solid #af0cac;
 }
 
-.levelContainer{
-  border: 2px solid rgb(10, 10, 10);
+.levelContainer {
+  /* border: 2px solid rgb(10, 10, 10); */
   display: flex;
   flex-direction: column;
-  align-items:center ;
+  align-items: center;
   justify-content: center;
 }
-.levelBtnContainer{
-   border: 2px solid red;
-   display: flex;
-   flex-direction: column;
-   gap: 2.5;
-   width:80%;
-   
+.levelBtnContainer {
+  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  gap: 2.5;
+  width: 80%;
 }
 
 #gameContainer {
   border: 2px solid black;
   height: auto;
   width: auto;
-  
 }
 #gameHeader {
   border: 2px solid black;
@@ -158,7 +149,6 @@ padding: 1rem;
 .backBtn {
   background-color: cadetblue;
   color: var(--text-primary);
-  
 }
 
 .startBtn {
