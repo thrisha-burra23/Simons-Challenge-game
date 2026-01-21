@@ -1,21 +1,14 @@
 const body = document.body;
 const mainContainer = document.getElementById("mainContainer");
 
-let start = false;
+let isGameRunning = false;
+let isUserTurn = false;
 let gameSeq = [];
 let userSeq = [];
 let gameScore = 0;
-let gameLevel = 0;
+let difficulty = null;
+let round = 0;
 const colors = ["red", "green", "yellow", "blue"];
-
-const themeToggle = document.getElementById("themeToggle");
-body.classList.add("light")
-themeToggle.innerHTML = `<span class="material-symbols-outlined">
-                            dark_mode
-                            </span>`
-themeToggle.addEventListener("click", () => {
-
-})
 
 document.addEventListener("DOMContentLoaded", createLevels);
 
@@ -57,6 +50,15 @@ function createLevels() {
 
 }
 
+function assignClicks(){
+    document.querySelectorAll(".pad").forEach((p)=>{
+        p.addEventListener("click",()=>{
+            const padClicked=p.dataset.color;
+            handleUserInput(padClicked);
+        })
+    })
+}
+
 function basicGameBody(handleLevel) {
     const backBtn = document.createElement("button");
     const resetBtn = document.createElement("button");
@@ -77,7 +79,7 @@ function basicGameBody(handleLevel) {
     resetBtn.classList.add("resetBtn");
     resetBtn.setAttribute("id", "resetBtn");
 
-    level.textContent = `level ${gameLevel}`;
+    level.textContent = `level ${round}`;
     level.setAttribute("id", "level");
     score.textContent = `score ${gameScore}`;
     score.setAttribute("id", "score");
@@ -105,18 +107,18 @@ function basicGameBody(handleLevel) {
 
 function handleReset() {
     console.log("Reset clicked")
-    gameLevel = 0;
+    round = 0;
     gameScore = 0;
     userSeq = [];
     gameSeq = [];
-    start = false;
-    console.log(gameLevel)
+    isGameRunning = false;
+    isUserTurn = false;
 }
 
-function replaceStart() {
+function replaceStartWithReset() {
     const gameStart = document.getElementById("gameStart");
     const startBtn = document.querySelector(".startBtn");
-    if (start == false) {
+    if (isGameRunning == false) {
 
         if (startBtn) {
             startBtn.remove();
@@ -130,8 +132,66 @@ function replaceStart() {
     }
 }
 
+function blink(color) {
+    const pad = document.querySelector(`.${color}`);
+    if (!pad) {
+        console.log("no pad exists");
+        return;
+    }
+    pad.classList.add("active");
+    setTimeout(() =>
+        pad.classList.remove("active"), 350);
+}
+
+function getRandomColor() {
+    let index = Math.floor(Math.random() * colors.length);
+    console.log(index);
+    return colors[index];
+}
+
+function nextRound() {
+    console.log("next ROund...")
+    userSeq = [];
+    round = round + 1;
+    gameSeq.push(getRandomColor());
+}
+
+function handleUserInput(color) {
+    if (!isGameRunning || !isUserTurn) return;
+    blink(color)
+    userSeq.push(color)
+    checkAnswer(userSeq.length - 1);
+}
+
+function checkAnswer(index) {
+    if (userSeq[index] !== gameSeq[index]) {
+        console.log("wrong sequence!");
+        handleReset();
+        return;         
+    } 
+    if(userSeq.length===gameSeq.length){
+        gameScore=gameScore+1;
+        nextRound();
+        setTimeout(playSequence,600)
+    }
+}
+
+function playSequence() {
+    isUserTurn = false;
+    const blinkDelay = 600;
+    gameSeq.forEach((color, index) => {
+        setTimeout(() => {
+            blink(color)
+            if (index === gameSeq.length - 1) {
+                isUserTurn = true;
+            }
+        }, index * blinkDelay);
+    })
+}
+
 function handleEasyLevel() {
     console.log("clicked easy level button");
+
     mainContainer.innerHTML = "";
 
     basicGameBody(handleEasyStart);
@@ -140,32 +200,28 @@ function handleEasyLevel() {
 
     gameContainer.innerHTML = `
     <div class="level1Board">
-        <div  style="border-radius: 12%;" class="pad green top" id="green1">green</div>
-        <div style="border-radius: 12%;" class="pad red left " id="red1">red</div>
-        <div style="border-radius: 12%;" class="pad center" id="center">center</div>
-        <div style="border-radius: 12%;" class="pad yellow right" id="yellow1">yellow</div>
-        <div style="border-radius: 12%;" class="pad blue bottom" id="blue1">blue</div>
+        <div  style="border-radius: 12%;" class="pad green top" data-color="green" id="green1"></div>
+        <div style="border-radius: 12%;" class="pad red left " data-color="red" id="red1"></div>
+        <div style="border-radius: 12%;" class=" center"  id="center"></div>
+        <div style="border-radius: 12%;" class="pad yellow right" data-color="yellow" id="yellow1"></div>
+        <div style="border-radius: 12%;" class="pad blue bottom" data-color="blue" id="blue1"></div>
     </div>
     `
+    assignClicks();
 }
 
 function handleEasyStart() {
-    console.log("Easy Level start clicked", ++gameLevel)
-    if (start == false) {
-        replaceStart();
+    console.log("Easy Level start clicked")
+    if (isGameRunning) return;
 
-        const green = document.getElementById("green1");
-        const yellow = document.getElementById("yellow1");
-        const blue = document.getElementById("blue1");
-        const red = document.getElementById("red1");
-
-
-    }
-
+    isGameRunning = true;
+    difficulty = "Easy";
+    nextRound();
+    playSequence();
 }
 
 function handleMediumLevel() {
-     console.log("clicked easy level button");
+    console.log("clicked easy level button"); 
     mainContainer.innerHTML = "";
 
     basicGameBody(handleEasyStart);
@@ -174,12 +230,13 @@ function handleMediumLevel() {
 
     gameContainer.innerHTML = `
     <div class="level1Board">
-        <div  style="border-radius: 100%;" class="pad green top" id="green2">green</div>
-        <div style="border-radius: 100%;" class="pad red left " id="red2">red</div>        
-        <div style="border-radius: 100%;" class="pad yellow right" id="yellow2">yellow</div>
-        <div style="border-radius: 100%;" class="pad blue bottom" id="blue2">blue</div>
+        <div  style="border-radius: 100%;" class="pad green top" data-color="green" id="green2"></div>
+        <div style="border-radius: 100%;" class="pad red left " data-color="red" id="red2"></div>        
+        <div style="border-radius: 100%;" class="pad yellow right" data-color="yellow" id="yellow2"></div>
+        <div style="border-radius: 100%;" class="pad blue bottom" data-color="blue" id="blue2"></div>
     </div>
     `
+    assignClicks();
 }
 
 function handleMediumStart() {

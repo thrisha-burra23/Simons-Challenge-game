@@ -7,43 +7,30 @@ body {
   width: min(95vw, 425px);
   height: 100dvh;
   margin: 0 auto;
-  border: 2px solid var(--border);
-  color: var(--text-primary);
-  background-color: var(--bg);
+  /* border: 2px solid rgba(0, 0, 0, 0.12); */
+  color: #111111;
+  background-color: #f4f4f4;
 }
 
 .green {
-  background-color: var(--green);
+  background-color: #2ecc71;
 }
 .yellow {
-  background-color: var(--yellow);
+  background-color: #f1c40f;
 }
 .red {
-  background-color: var(--red);
+  background-color: #e74c3c;
 }
 .blue {
-  background-color: var(--blue);
-}
-
-#themeToggle {
-  background-color: none;
-  color: var(--text-primary);
-  cursor: pointer;
-  border: none;
-  font-size: 20px;
-}
-
-#themeToggle:active {
-  transform: scale(0.95);
+  background-color: #3498db;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0.75rem 0.5rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  /* border: 2px solid black; */
-  padding: 1rem 0;
 }
 
 header img {
@@ -52,12 +39,12 @@ header img {
 }
 
 header h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-style: italic;
 }
 
 .mainHeading {
-  color: var(--text-primary);
+  color: #111111;
   padding-top: 2rem;
   padding-bottom: 2rem;
   font-size: 2rem;
@@ -68,11 +55,23 @@ header h1 {
 .LevelBtn {
   padding: 1rem;
   margin: 1rem;
-  color: var(--text-primary);
+  color: #111111;
   background-color: #af0cac;
   font-size: larger;
   border-radius: 3rem;
-  border: 2px solid #af0cac;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.LevelBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.LevelBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .levelContainer {
@@ -91,29 +90,49 @@ header h1 {
 }
 
 #gameContainer {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   height: auto;
   width: auto;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
+
 #gameHeader {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   display: flex;
   align-items: center;
   justify-content: space-around;
   height: 3rem;
   width: auto;
+  margin-top: 1rem;
+  padding: 0 1rem;
 }
 #gameStart {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 3rem;
+  margin-top: 1.5rem;
 }
 
 .pad {
   height: 8.3rem;
   width: 8.3rem;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.active {
+  opacity: 0.6;
+  transform: scale(1.05);
+}
+
+.pad:active {
+  transform: scale(0.95);
 }
 
 .level1Board {
@@ -142,18 +161,35 @@ header h1 {
 .center {
   grid-column: 2;
   grid-row: 2;
-  background-color: var(--bg);
-  border: 2px solid black;
+  background-color: #f4f4f4;
+  /* border: 2px solid black; */
 }
 
 .backBtn {
   background-color: cadetblue;
-  color: var(--text-primary);
+  color: #111111;
 }
 
 .startBtn {
   background-color: bisque;
-  color: var(--text-primary);
+  color: #111111;
   height: 3rem;
   width: 10rem;
+}
+
+.startBtn,
+.resetBtn,
+.backBtn {
+  border-radius: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.startBtn:active,
+.resetBtn:active,
+.backBtn:active {
+  transform: scale(0.97);
 }
