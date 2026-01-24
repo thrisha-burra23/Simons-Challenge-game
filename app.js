@@ -10,6 +10,7 @@ let difficulty = null;
 let round = 0;
 const colors = ["red", "green", "yellow", "blue"];
 
+
 document.addEventListener("DOMContentLoaded", createLevels);
 
 function createLevels() {
@@ -126,7 +127,7 @@ function replaceStartWithReset() {
         const resetBtn = document.createElement("button");
         resetBtn.textContent = "Reset";
         resetBtn.classList.add("resetBtn");
-        resetBtn.addEventListener("click", handleReset);
+        resetBtn.addEventListener("click", goBackToSameLevel);
 
         gameStart.appendChild(resetBtn);
     }
@@ -186,20 +187,25 @@ function checkAnswer(index) {
 
 function playSequence() {
     isUserTurn = false;
+    let sequencePlay = gameSeq;
     let blinkDelay = 0;
+
     if (difficulty === "easy") {
         blinkDelay = 800;
     } else if (difficulty === "medium") {
         blinkDelay = 500;
+        sequencePlay = gameSeq.slice(-2);
     } else if (difficulty === "hard") {
         blinkDelay = 300;
     }
 
-    gameSeq.forEach((color, index) => {
+    sequencePlay.forEach((color, index) => {
         setTimeout(() => {
             blink(color)
-            if (index === gameSeq.length - 1) {
-                isUserTurn = true;
+            if (index === sequencePlay.length - 1) {
+                setTimeout(() => {
+                    isUserTurn = true;
+                }, 350);
             }
         }, index * blinkDelay);
     })
@@ -247,6 +253,15 @@ function showGameOver() {
     mainContainer.appendChild(h1);
     mainContainer.appendChild(h2);
     mainContainer.appendChild(backToLevels);
+}
+
+function shufflePads() {
+    console.log("shuffle pads function");
+    const pads=document.querySelectorAll(".pad");
+    const padPositions = [[1, 1], [1, 2], [1, 3],
+    [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]];
+     
+
 }
 
 function handleEasyLevel() {
@@ -309,9 +324,14 @@ function handleMediumStart() {
     console.log("Medium Level start clicked")
     if (isGameRunning) return;
     replaceStartWithReset();
+    round = 0;
+    gameScore = 0;
+    gameSeq = [];
+    userSeq = [];
     isGameRunning = true;
     difficulty = "medium";
     nextRound();
+    updateScoreAndRound();
     playSequence();
 }
 
@@ -323,8 +343,28 @@ function handleHardLevel() {
     const gameContainer = document.getElementById("gameContainer");
 
     gameContainer.innerHTML = "Hard";
+
+    gameContainer.innerHTML = `
+    <div class="level1Board" id="hardBoard">
+        <div  style="border-radius: 12%;" class="pad green " data-color="green" ></div>
+        <div style="border-radius: 12%;" class="pad red  " data-color="red" ></div>        
+        <div style="border-radius: 12%;" class="pad yellow " data-color="yellow" ></div>
+        <div style="border-radius: 12%;" class="pad blue " data-color="blue" ></div>        
+    </div>
+    `
+    assignClicks();
 }
 
 function handleHardStart() {
     console.log("Hard Level start clicked")
+    if (isGameRunning) return;
+    replaceStartWithReset();
+    round = 0;
+    gameScore = 0;
+    userSeq = [];
+    gameSeq = [];
+
+    nextRound();
+    shufflePads();
+    playSequence();
 }
