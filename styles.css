@@ -39,7 +39,7 @@ header img {
 }
 
 header h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-style: italic;
 }
 
@@ -171,7 +171,7 @@ header h1 {
 }
 
 .startBtn {
-  background-color: bisque;
+  background-color: #e877be;
   color: #111111;
   height: 3rem;
   width: 10rem;
@@ -194,4 +194,33 @@ header h1 {
   transform: scale(0.97);
 }
 
+.gameOverh1{
+  text-align: center;
+  margin: 4rem 4rem 3rem 4rem;
+}
 
+.gameOverh2{
+  text-align: center;
+  margin: 2rem 4rem 2rem 4rem;
+}
+
+.backToLevels{
+  background-color:rgb(244, 131, 50);
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+  display: flex;
+  padding: 1rem;
+  border-radius: 2rem;
+  color: #f4f4f4;
+  border: none;
+  font-size: large;
+}
+
+.resetBtn {
+  background-color: #ea5db6;
+  color: #111111;
+  height: 3rem;
+  width: 10rem;
+}

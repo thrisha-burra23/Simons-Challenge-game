@@ -10,7 +10,6 @@ let difficulty = null;
 let round = 0;
 const colors = ["red", "green", "yellow", "blue"];
 
-
 document.addEventListener("DOMContentLoaded", createLevels);
 
 function createLevels() {
@@ -71,7 +70,11 @@ function basicGameBody(handleLevel) {
 
     backBtn.className = "backBtn";
     backBtn.textContent = "Back";
-    backBtn.addEventListener("click", createLevels);
+    backBtn.addEventListener("click", () => {
+        handleReset();
+        difficulty = null;
+        createLevels();
+    });
     backBtn.classList.add("backBtn");
 
     resetBtn.className = "resetBtn";
@@ -150,11 +153,17 @@ function getRandomColor() {
     return colors[index];
 }
 
+function setBoardInteractivity(enabled) {
+    document.querySelectorAll(".pad").forEach(pad => {
+        pad.style.pointerEvents = enabled ? "auto" : "none";
+    });
+}
+
+
 function nextRound() {
     console.log("next Round...")
     userSeq = [];
     round = round + 1;
-    //updateScoreAndRound();
     if (difficulty === "easy" || difficulty === "hard") {
         gameSeq.push(getRandomColor());
     } else if (difficulty === "medium") {
@@ -178,33 +187,40 @@ function checkAnswer(index) {
         return;
     }
     if (userSeq.length === gameSeq.length) {
-        gameScore = gameScore + 1;
-        nextRound();
-        updateScoreAndRound();
-        setTimeout(playSequence, 600)
+        isUserTurn = false;
+        setTimeout(() => {
+            gameScore = gameScore + 1;
+            nextRound();
+            updateScoreAndRound();
+            if (difficulty === "hard") {
+                shufflePads();
+                setTimeout(() => { playSequence() }, 600)
+            } else
+                playSequence();
+        }, 500)
     }
 }
 
 function playSequence() {
     isUserTurn = false;
-    let sequencePlay = gameSeq;
+    setBoardInteractivity(false);
     let blinkDelay = 0;
 
     if (difficulty === "easy") {
-        blinkDelay = 800;
+        blinkDelay = 900;
     } else if (difficulty === "medium") {
-        blinkDelay = 500;
-        sequencePlay = gameSeq.slice(-2);
+        blinkDelay = 600;
     } else if (difficulty === "hard") {
-        blinkDelay = 300;
+        blinkDelay = 500;
     }
 
-    sequencePlay.forEach((color, index) => {
+    gameSeq.forEach((color, index) => {
         setTimeout(() => {
             blink(color)
-            if (index === sequencePlay.length - 1) {
+            if (index === gameSeq.length - 1) {
                 setTimeout(() => {
                     isUserTurn = true;
+                    setBoardInteractivity(true);
                 }, 350);
             }
         }, index * blinkDelay);
@@ -255,12 +271,35 @@ function showGameOver() {
     mainContainer.appendChild(backToLevels);
 }
 
+function getRandomPositions() {
+    const positionsCopy = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    const random = [];
+    let i = 0;
+    while (i < 4) {
+        let num = Math.floor(Math.random() * 9);
+        console.log("random number Generated", num);
+
+        if (positionsCopy[num] !== 99) {
+            random.push(num);
+            positionsCopy[num] = 99
+            i++;
+        }
+    }
+    return random;
+}
+
 function shufflePads() {
     console.log("shuffle pads function");
-    const pads=document.querySelectorAll(".pad");
+    const pads = document.querySelectorAll(".pad");
     const padPositions = [[1, 1], [1, 2], [1, 3],
     [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]];
-     
+    let positions = getRandomPositions();
+
+    pads.forEach((pad, index) => {
+        const [row, col] = padPositions[positions[index]];
+        pad.style.gridRow = row;
+        pad.style.gridColumn = col;
+    });
 
 }
 
@@ -346,12 +385,13 @@ function handleHardLevel() {
 
     gameContainer.innerHTML = `
     <div class="level1Board" id="hardBoard">
-        <div  style="border-radius: 12%;" class="pad green " data-color="green" ></div>
-        <div style="border-radius: 12%;" class="pad red  " data-color="red" ></div>        
-        <div style="border-radius: 12%;" class="pad yellow " data-color="yellow" ></div>
-        <div style="border-radius: 12%;" class="pad blue " data-color="blue" ></div>        
+        <div  style="border-radius: 12%;" class="pad green top " data-color="green" ></div>
+        <div style="border-radius: 12%;" class="pad red  bottom" data-color="red" ></div>        
+        <div style="border-radius: 12%;" class="pad yellow left" data-color="yellow" ></div>
+        <div style="border-radius: 12%;" class="pad blue right" data-color="blue" ></div>        
     </div>
     `
+
     assignClicks();
 }
 
@@ -363,8 +403,10 @@ function handleHardStart() {
     gameScore = 0;
     userSeq = [];
     gameSeq = [];
-
+    updateScoreAndRound();
+    isGameRunning = true;
+    difficulty = "hard";
     nextRound();
-    shufflePads();
+    updateScoreAndRound();
     playSequence();
 }
