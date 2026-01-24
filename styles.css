@@ -39,7 +39,7 @@ header img {
 }
 
 header h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
   font-style: italic;
 }
 
@@ -118,8 +118,8 @@ header h1 {
 }
 
 .pad {
-  height: 8.3rem;
-  width: 8.3rem;
+   width: min(22vw, 8.3rem);
+  height: min(22vw, 8.3rem);
   cursor: pointer;
   transition:
     transform 0.15s ease,
@@ -137,8 +137,8 @@ header h1 {
 
 .level1Board {
   display: grid;
-  grid-template-columns: 8.3rem 8.3rem 8.3rem;
-  grid-template-rows: 8.3rem 8.3rem 8.3rem;
+  grid-template-columns: repeat(3, minmax(60px, 1fr));
+  grid-template-rows: repeat(3, minmax(60px, 1fr));
   gap: 0.5rem;
 }
 
