@@ -50,11 +50,11 @@ function createLevels() {
 
 }
 
-function assignClicks(){
-    document.querySelectorAll(".pad").forEach((p)=>{
-        p.addEventListener("click",()=>{
-            const padClicked=p.dataset.color;
-            handleUserInput(padClicked);
+function assignClicks() {
+    document.querySelectorAll(".pad").forEach((p) => {
+        p.addEventListener("click", () => {
+            const padClicked = p.dataset.color;
+            handleUserInput(padClicked,);
         })
     })
 }
@@ -150,10 +150,16 @@ function getRandomColor() {
 }
 
 function nextRound() {
-    console.log("next ROund...")
+    console.log("next Round...")
     userSeq = [];
     round = round + 1;
-    gameSeq.push(getRandomColor());
+    //updateScoreAndRound();
+    if (difficulty === "easy" || difficulty === "hard") {
+        gameSeq.push(getRandomColor());
+    } else if (difficulty === "medium") {
+        gameSeq.push(getRandomColor());
+        gameSeq.push(getRandomColor());
+    }
 }
 
 function handleUserInput(color) {
@@ -166,19 +172,29 @@ function handleUserInput(color) {
 function checkAnswer(index) {
     if (userSeq[index] !== gameSeq[index]) {
         console.log("wrong sequence!");
+        showGameOver();
         handleReset();
-        return;         
-    } 
-    if(userSeq.length===gameSeq.length){
-        gameScore=gameScore+1;
+        return;
+    }
+    if (userSeq.length === gameSeq.length) {
+        gameScore = gameScore + 1;
         nextRound();
-        setTimeout(playSequence,600)
+        updateScoreAndRound();
+        setTimeout(playSequence, 600)
     }
 }
 
 function playSequence() {
     isUserTurn = false;
-    const blinkDelay = 600;
+    let blinkDelay = 0;
+    if (difficulty === "easy") {
+        blinkDelay = 800;
+    } else if (difficulty === "medium") {
+        blinkDelay = 500;
+    } else if (difficulty === "hard") {
+        blinkDelay = 300;
+    }
+
     gameSeq.forEach((color, index) => {
         setTimeout(() => {
             blink(color)
@@ -187,6 +203,50 @@ function playSequence() {
             }
         }, index * blinkDelay);
     })
+}
+
+function updateScoreAndRound() {
+    const score1 = document.getElementById("score");
+    const round1 = document.getElementById("level");
+    if (score1) {
+        score1.textContent = `Score: ${gameScore}`;
+    }
+    if (round1) {
+        round1.textContent = `Level: ${round}`
+    }
+}
+
+function goBackToSameLevel() {
+    handleReset();
+
+    if (difficulty === "easy") {
+        handleEasyLevel();
+    }
+    else if (difficulty === "medium") {
+        handleMediumLevel();
+    } else if (difficulty === "hard") {
+        handleHardLevel();
+    }
+}
+
+function showGameOver() {
+    mainContainer.innerHTML = "";
+    let h1 = document.createElement("h1");
+    h1.classList.add("gameOverh1");
+    h1.textContent = "Game Over!"
+
+    let h2 = document.createElement("h2");
+    h2.classList.add("gameOverh2");
+    h2.textContent = `Score ${gameScore}`
+
+    let backToLevels = document.createElement("button");
+    backToLevels.textContent = "Play Again";
+    backToLevels.classList.add("backToLevels")
+    backToLevels.addEventListener("click", goBackToSameLevel);
+
+    mainContainer.appendChild(h1);
+    mainContainer.appendChild(h2);
+    mainContainer.appendChild(backToLevels);
 }
 
 function handleEasyLevel() {
@@ -213,18 +273,24 @@ function handleEasyLevel() {
 function handleEasyStart() {
     console.log("Easy Level start clicked")
     if (isGameRunning) return;
-
+    replaceStartWithReset();
+    round = 0;
+    gameScore = 0;
+    gameSeq = [];
+    userSeq = [];
+    updateScoreAndRound();
     isGameRunning = true;
-    difficulty = "Easy";
+    difficulty = "easy";
     nextRound();
+    updateScoreAndRound();
     playSequence();
 }
 
 function handleMediumLevel() {
-    console.log("clicked easy level button"); 
+    console.log("clicked medium level button");
     mainContainer.innerHTML = "";
 
-    basicGameBody(handleEasyStart);
+    basicGameBody(handleMediumStart);
     const gameContainer = document.getElementById("gameContainer");
     gameContainer.innerHTML = "Medium";
 
@@ -241,6 +307,12 @@ function handleMediumLevel() {
 
 function handleMediumStart() {
     console.log("Medium Level start clicked")
+    if (isGameRunning) return;
+    replaceStartWithReset();
+    isGameRunning = true;
+    difficulty = "medium";
+    nextRound();
+    playSequence();
 }
 
 function handleHardLevel() {
