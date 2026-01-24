@@ -5,7 +5,8 @@ The game challenges players to remember and repeat color sequences that grow pro
 Players can choose between Easy, Medium, and Hard difficulty levels, each offering a unique gameplay experience.
 
 ## Live Demo
-👉 
+👉  https://thrisha-burra23.github.io/Simons-Challenge-game/
+
 ## GamePlay Overview
 1. Choose a difficulty level (Easy / Medium / Hard)
 2. Click **Start** to begin the game
