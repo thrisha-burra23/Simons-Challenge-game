@@ -225,3 +225,42 @@ header h1 {
   height: 3rem;
   width: 10rem;
 }
+
+.instructions {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  width: 90%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.instructions h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.instructions ul {
+  padding-left: 1.2rem;
+}
+
+.instructions li {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.howToPlayBtn {
+  background-color: #6d8dd6;
+  color: black;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.howToPlayBtn:active {
+  transform: scale(0.97);
+}

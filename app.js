@@ -35,6 +35,32 @@ function createLevels() {
     mediumLevelBtn.classList.add("LevelBtn");
     hardLevelBtn.classList.add("LevelBtn");
 
+    const instructionsBtn = document.createElement("button");
+    instructionsBtn.textContent = "How to Play";
+    instructionsBtn.classList.add("howToPlayBtn");
+
+    const instructions = document.createElement("div");
+    instructions.classList.add("instructions");
+    instructions.style.display = "none";
+
+    instructions.innerHTML = `
+  <h2>How to Play</h2>
+  <ul>
+    <li>Select a difficulty level</li>
+    <li>Click <b>Start</b> to begin</li>
+    <li>Watch the color sequence carefully</li>
+    <li>Repeat the sequence by clicking the pads</li>
+    <li>Each round adds a new challenge</li>
+    <li>One wrong move ends the game</li>
+  </ul>
+`;
+
+    instructionsBtn.addEventListener("click", () => {
+        const isVisible = instructions.style.display === "block";
+        instructions.style.display = isVisible ? "none" : "block";
+        instructionsBtn.textContent = isVisible ? "How to Play" : "Hide Instructions";
+    });
+
     easyLevelBtn.addEventListener("click", handleEasyLevel);
     mediumLevelBtn.addEventListener("click", handleMediumLevel);
     hardLevelBtn.addEventListener("click", handleHardLevel);
@@ -44,6 +70,8 @@ function createLevels() {
     levelBtnContainer.appendChild(hardLevelBtn);
 
     levelContainer.appendChild(h1);
+    levelContainer.appendChild(instructionsBtn);
+    levelContainer.appendChild(instructions);
     levelContainer.appendChild(levelBtnContainer);
 
     mainContainer.appendChild(levelContainer);
@@ -313,8 +341,7 @@ function handleEasyLevel() {
     const gameContainer = document.getElementById("gameContainer");
     gameContainer.innerHTML = "Easy";
 
-    gameContainer.innerHTML = `
-    <div class="level1Board">
+    gameContainer.innerHTML = `<div class="level1Board">     
         <div  style="border-radius: 12%;" class="pad green top" data-color="green" id="green1"></div>
         <div style="border-radius: 12%;" class="pad red left " data-color="red" id="red1"></div>
         <div style="border-radius: 12%;" class=" center"  id="center"></div>
