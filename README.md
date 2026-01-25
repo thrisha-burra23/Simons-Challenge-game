@@ -36,7 +36,7 @@ Players can choose between Easy, Medium, and Hard difficulty levels, each offeri
 - Dynamic DOM-based UI (no hardcoded game layout)
 - Three difficulty levels with unique logic
 - Real-time score and level tracking
-- Visual feedback using animations
+- Visual feedback 
 - Reset and back navigation
 - Responsive design for small screens
 - Built using pure JavaScript (no libraries)
