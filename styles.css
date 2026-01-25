@@ -40,18 +40,29 @@ header img {
   flex-shrink: 0;
 }
 
+
 header h1 {
- font-size: clamp(1.4rem, 5vw, 2.3rem);
+  font-size: clamp(2rem, 5vw, 2.28rem);
+  font-weight: 800;
+  color: #302125;
+  letter-spacing: 1px;
   font-style: italic;
-  text-align: center;
-  line-height: 1.2;
+  text-transform:capitalize;
 }
+
+
+header {
+  border-bottom: 3px solid #17151f34;
+  margin-bottom: 0.5rem;
+}
+
+
 
 .mainHeading {
   color: #111111;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 1.3rem;
   font-style: oblique;
   padding-left: 1rem;
 }
